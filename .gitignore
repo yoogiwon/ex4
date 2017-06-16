@@ -7,3 +7,4 @@ target/.gitignore
 .settings/org.eclipse.wst.common.component
 .settings/org.eclipse.m2e.core.prefs
 .settings/org.eclipse.jdt.core.prefs
+/target/
