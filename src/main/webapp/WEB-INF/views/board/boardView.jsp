@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,5 +30,8 @@
 	</table>
 	<a href="${board}Update?num=${view.num}">Update</a>
 	<a href="${board}Delete?num=${view.num}">Delete</a>
+	<c:if test="${board eq 'freeboard'}">
+		<a href="${board}Reply?num=${view.num}">Reply</a>
+	</c:if>
 </body>
 </html>

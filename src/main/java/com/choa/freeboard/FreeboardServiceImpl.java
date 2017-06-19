@@ -51,4 +51,8 @@ public class FreeboardServiceImpl implements BoardService {
 	public BoardDTO freeboardUpdateForm(int num) throws Exception {
 		return freeboardDAO.boardView(num);
 	}
+	
+	public int freeboardReply(FreeboardDTO freeboardDTO) throws Exception {
+		return freeboardDAO.boardReply(freeboardDTO);
+	}
 }

@@ -24,7 +24,7 @@
 				<c:catch>
 					<c:forEach begin="1" end="${dto.depth}">&nbsp;&nbsp;</c:forEach>				
 				</c:catch>
-				<td><a href="noticeView?num=${dto.num}">${dto.title}</a></td>
+				<td><a href="${board}View?num=${dto.num}">${dto.title}</a></td>
 				<td>${dto.writer}</td>
 				<td>${dto.contents}</td>
 				<td>${dto.reg_date}</td>

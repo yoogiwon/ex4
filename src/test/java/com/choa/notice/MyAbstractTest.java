@@ -10,9 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 public abstract class MyAbstractTest {
 
-	@Test
-	public void test() throws Exception {
-		fail("Not yet implemented");
-	}
+	
 
 }

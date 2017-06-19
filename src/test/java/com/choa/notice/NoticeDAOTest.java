@@ -2,30 +2,31 @@ package com.choa.notice;
 
 import static org.junit.Assert.*;
 
-import javax.inject.Inject;
+import java.util.List;
 
+import javax.inject.Inject;
 import org.junit.Test;
 
 import com.choa.board.BoardDTO;
+import com.choa.util.PageMaker;
 
 public class NoticeDAOTest extends MyAbstractTest {
 	@Inject
-	private NoticeDAOImpl noticeDAO;
-
-	//@Test
-	public void test() throws Exception {
-	 	BoardDTO boardDTO = noticeDAO.boardView(29);
-	 	System.out.println(boardDTO.getTitle());
-	 	
-	 	assertNotNull(boardDTO); // 데이터가 null인지 아닌지 확인(초록색이면 not null, 아니면 null)
+	private NoticeDAOImpl noticeDAOImpl;
+	
+	@Test
+	public void connectionTest() throws Exception {
+		PageMaker pageMaker = new PageMaker(1);
+		
+		List<BoardDTO> ar = noticeDAOImpl.boardList(pageMaker.getRowMaker());
+		
+		assertNotEquals(0, ar.size());
 	}
 	
 	@Test
-	public void test2() throws Exception {
-		int result = noticeDAO.boardDelete(29);
-		System.out.println(result);
+	public void countTest() throws Exception {
+		int result = noticeDAOImpl.boardCount();
 		
-		assertEquals(1, result); // 데이터가 같은지 확인
+		assertNotEquals(0, result);
 	}
-
 }

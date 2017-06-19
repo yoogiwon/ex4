@@ -99,7 +99,34 @@ public class FreeboardController {
 		}
 		
 		model.addAttribute("message", message);
-		model.addAttribute("path", "noticeList?curPage=1");
+		model.addAttribute("path", "freeboardList?curPage=1");
+		
+		return "common/result";
+	}
+	
+	@RequestMapping(value = "freeboardReply", method = RequestMethod.GET)
+	public String freeboardReply(Integer num, Model model) {
+		FreeboardDTO freeboardDTO = new FreeboardDTO();
+		
+		freeboardDTO.setNum(num);
+		model.addAttribute("path", "Reply");
+		model.addAttribute("board", "freeboard");
+		model.addAttribute("update", freeboardDTO);
+		
+		return "board/boardWrite";
+	}
+	
+	@RequestMapping(value = "freeboardReply", method = RequestMethod.POST)
+	public String freeboardReply(FreeboardDTO freeboardDTO, Model model) throws Exception {
+		int result = freeboardService.freeboardReply(freeboardDTO);
+		String message = "REPLY FAIL";
+		
+		if(result>0) {
+			message = "REPLY SUCCESS";
+		}
+		
+		model.addAttribute("message", message);
+		model.addAttribute("path", "freeboardList?curPage=1");
 		
 		return "common/result";
 	}
