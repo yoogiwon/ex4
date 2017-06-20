@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import org.junit.Test;
 
 import com.choa.board.BoardDTO;
+import com.choa.util.ListInfo;
 import com.choa.util.PageMaker;
+import com.choa.util.RowMaker;
 
 public class NoticeDAOTest extends MyAbstractTest {
 	@Inject
@@ -16,17 +18,21 @@ public class NoticeDAOTest extends MyAbstractTest {
 	
 	@Test
 	public void connectionTest() throws Exception {
-		PageMaker pageMaker = new PageMaker(1);
+		ListInfo listInfo = new ListInfo();
 		
-		List<BoardDTO> ar = noticeDAOImpl.boardList(pageMaker.getRowMaker());
+		listInfo.setSearch("test");
+		listInfo.setKind("writer");
+		int totalCount = noticeDAOImpl.boardCount(listInfo);
 		
-		assertNotEquals(0, ar.size());
+		System.out.println(totalCount);
+		
+		assertNotEquals(0, totalCount);
 	}
 	
-	@Test
+	/*@Test
 	public void countTest() throws Exception {
 		int result = noticeDAOImpl.boardCount();
 		
 		assertNotEquals(0, result);
-	}
+	}*/
 }

@@ -3,10 +3,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="NoticeMapper">
-	<select id="list" resultType="com.choa.notice.NoticeDTO" parameterType="com.choa.util.RowMaker">
+	<sql id="search">
+		<trim prefix="where" prefixOverrides="and || or">
+			<if test="kind=='title'">
+				title like '%' || #{search} || '%' 
+			</if>
+			<if test="kind=='writer'">
+				writer like '%' || #{search} || '%' 
+			</if>
+			<if test="kind=='contents'">
+				contents like '%' || #{search} || '%' 
+			</if>
+		</trim>
+	</sql>
+	<select id="list" resultType="com.choa.notice.NoticeDTO" parameterType="com.choa.util.ListInfo">
 		select * from 
 		(select rownum r, n.* from 
-		(select * from notice order by num desc) n) 
+		(select * from notice 
+		<include refid="search"></include>
+		order by num desc) n) 
 		where r between #{startRow} and #{lastRow} 
 	</select>
 	<select id="view" resultType="com.choa.notice.NoticeDTO" parameterType="java.lang.Integer">
@@ -21,8 +36,9 @@
 	<delete id="delete" parameterType="java.lang.Integer">
 		delete notice where num=#{num}
 	</delete>
-	<select id="count" resultType="java.lang.Integer">
-		select nvl(count(num), 0) from notice
+	<select id="count" resultType="java.lang.Integer" parameterType="com.choa.util.ListInfo">
+		select nvl(count(num), 0) from notice 
+		<include refid="search"></include>
 	</select>
 	<update id="hit" parameterType="java.lang.Integer">
 		update notice set hit=hit+1 where num=#{num}
